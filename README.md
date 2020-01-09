@@ -4,6 +4,8 @@
 
 [3.最大子序和](#3.最大子序和)
 
+[4.多数元素](#4.多数元素)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -159,4 +161,76 @@ class Solution {
         return maxNum
     }
 }
+```
+
+# 4.多数元素
+
+给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+
+你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+
+示例 1:
+
+输入: [3,2,3]
+输出: 3
+
+示例 2:
+
+输入: [2,2,1,1,1,2,2]
+输出: 2
+
+思路：一开始想的是暴力遍历，用每一个元素的count值和[n/2]对比返回，代码如下：
+
+```
+class Solution {
+    func majorityElement(_ nums: [Int]) -> Int {
+        for num in nums {
+            var sum = 0
+            for i in nums {
+                if num == i {
+                    sum += 1
+                }
+            }
+            
+            if sum > nums.count / 2 {
+                return num
+            }
+        }
+        return -1
+    }
+}
+```
+
+但是执行完以后提交，结果执行结果超出时间限制。。。后面看到了先排序后找众数的想法，很简洁，拿到有序数组的第n/2个元素就是结果。代码如下：
+
+```
+class Solution {
+    func majorityElement(_ nums: [Int]) -> Int {
+        let array = nums.sorted()
+        return array[nums.count / 2]
+    }
+}
+```
+
+然后又看到了摩尔投票法，思路就是如果把该众数记为+1，把其他数记为−1，将它们全部加起来，和是大于 0 的。那么开始定义一个当前的元素tempNum和当前的和count，遍历当前数组，如果tempNum与数组元素相同则加一，不同则减一，如果count等于0，则将数组元素赋值给tempNum，count加一。代码如下：
+
+```
+class Solution {
+    func majorityElement(_ nums: [Int]) -> Int {
+        var tempNum = 0
+        var count = 0
+        for num in nums {
+            if count == 0 {
+                tempNum = num
+                count += 1
+            } else if tempNum == num {
+                count += 1
+            } else {
+                count -= 1
+            }
+        }
+        return tempNum
+    }
+}
+
 ```
