@@ -12,6 +12,8 @@
 
 [7.最短无序连续子数组](#7.最短无序连续子数组)
 
+[8.翻转二叉树](#8.翻转二叉树)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -361,3 +363,61 @@ class Solution {
     }
 }
 ```
+
+# 8.翻转二叉树
+
+翻转一棵二叉树。
+
+示例：
+
+输入：
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+输出：
+
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+
+备注:
+这个问题是受到 Max Howell 的 原问题 启发的 ：
+谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。
+
+经典的反转二叉树来了。。。。
+
+代码如下：
+
+```
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func invertTree(_ root: TreeNode?) -> TreeNode? {
+        if root == nil {
+            return nil
+        }
+        let left: TreeNode? = invertTree(root!.left)
+        let right: TreeNode? = invertTree(root!.right)
+        root!.right = left
+        root!.left = right
+        return root
+    }
+}
+```
+
