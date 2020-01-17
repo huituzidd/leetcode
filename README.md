@@ -14,6 +14,8 @@
 
 [8.翻转二叉树](#8.翻转二叉树)
 
+[9.对称二叉树](#9.对称二叉树)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -422,3 +424,59 @@ class Solution {
 }
 ```
 
+# 9.对称二叉树
+
+给定一个二叉树，检查它是否是镜像对称的。
+
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+
+```
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+```
+
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+
+```
+    1
+   / \
+  2   2
+   \   \
+   3    3
+```
+
+思路：看到这个就想起直接递归，只要同一层级的左右子树相等，那么就是对称二叉树，代码如下：
+
+```
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func isSymmetric(_ root: TreeNode?) -> Bool {
+        return isMirror(root, root)
+    }
+    
+    func isMirror(_ root1: TreeNode?,_ root2: TreeNode?) -> Bool {
+        if root1 == nil && root2 == nil {
+            return true
+        }
+        if root1 == nil || root2 == nil {
+            return false
+        }
+        return root1?.val == root2?.val && isMirror(root1?.left, root2?.right) && isMirror(root1?.right, root2?.left)
+    }
+}
+```
