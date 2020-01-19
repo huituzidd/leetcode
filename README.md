@@ -542,7 +542,6 @@ class Solution {
             return t1
         }
         let sum = TreeNode(t1!.val + t2!.val)
-        sum.val = t1!.val + t2!.val
         sum.left = mergeTrees(t1?.left, t2?.left)
         sum.right = mergeTrees(t1?.right, t2?.right)
         return sum
