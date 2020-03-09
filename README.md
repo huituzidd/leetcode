@@ -18,6 +18,8 @@
 
 [10.合并二叉树](#10.合并二叉树)
 
+[11.合并排序的数组](#11.合并排序的数组)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -548,3 +550,52 @@ class Solution {
     }
 }
 ```
+
+# 11.合并排序的数组
+
+给定两个排序后的数组 A 和 B，其中 A 的末端有足够的缓冲空间容纳 B。 编写一个方法，将 B 合并入 A 并排序。
+
+初始化 A 和 B 的元素数量分别为 m 和 n。
+
+示例:
+
+输入:
+
+A = [1,2,3,0,0,0], m = 3
+
+B = [2,5,6],       n = 3
+
+输出: [1,2,2,3,5,6]
+
+说明:
+
+A.length == n + m
+
+思路：由于两个数组已经排序，所以经过遍历，将两个数组最小的值比对，将最小的值放入新数组中。代码如下：
+
+```
+class Solution {
+    func merge(_ A: inout [Int], _ m: Int, _ B: [Int], _ n: Int) {
+        var sort = [Int]()
+        var indexa = 0
+        var indexb = 0
+        while indexa < m || indexb < n {
+            if indexa == m {
+                sort.append(B[indexb])
+                indexb += 1
+            } else if indexb == n {
+                sort.append(A[indexa])
+                indexa += 1
+            } else if A[indexa] < B[indexb] {
+                sort.append(A[indexa])
+                indexa += 1
+            } else {
+                sort.append(B[indexb])
+                indexb += 1
+            }
+        }
+        A = sort
+    }
+}
+```
+
