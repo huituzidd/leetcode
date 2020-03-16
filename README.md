@@ -22,6 +22,8 @@
 
 [12.543.二叉树的直径](#12.543.二叉树的直径)
 
+[13.206.反转链表](#13.206.反转链表)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -635,6 +637,36 @@ class Solution {
         let right = depth(node?.right)
         maxNumber = max(left + right, maxNumber)
         return max(left, right) + 1
+    }
+}
+```
+
+# 13. 206.反转链表
+
+反转一个单链表。
+
+示例:
+
+```
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+```
+
+```
+class Solution {
+    func reverseList(_ head: ListNode?) -> ListNode? {
+        guard var headNode = head else {
+            return nil
+        }
+        let list = ListNode.init(headNode.val)
+        var newHead = list
+        while let next = headNode.next {
+            let newNode = ListNode.init(next.val)
+            newNode.next = newHead
+            newHead = newNode
+            headNode = next
+        }
+        return newHead
     }
 }
 ```
