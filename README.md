@@ -20,7 +20,11 @@
 
 [11.合并排序的数组](#11.合并排序的数组)
 
-[12.反转字符串](#12.反转字符串)
+[12.543.二叉树的直径](#12.543.二叉树的直径)
+
+[13.206.反转链表](#13.206.反转链表)
+
+[14.反转字符串](#14.反转字符串)
 
 # 1.两数之和
 
@@ -601,7 +605,75 @@ class Solution {
 }
 ```
 
-# 12.反转字符串
+# 12.  543.二叉树的直径
+
+给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过根结点。
+
+示例 :
+给定二叉树
+```
+          1
+         / \
+        2   3
+       / \     
+      4   5
+```      
+返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。
+
+注意：两结点之间的路径长度是以它们之间边的数目表示。
+
+思路：深度优先搜索，计算y左右子树的最大层级相加+1即为直径。代码如下：
+
+```
+class Solution {
+    var maxNumber = 0
+    func diameterOfBinaryTree(_ root: TreeNode?) -> Int {
+        depth(root)
+        return maxNumber
+    }
+    func depth(_ node: TreeNode?) -> Int {
+        if node == nil {
+            return 0
+        }
+        let left = depth(node?.left)
+        let right = depth(node?.right)
+        maxNumber = max(left + right, maxNumber)
+        return max(left, right) + 1
+    }
+}
+```
+
+# 13. 206.反转链表
+
+反转一个单链表。
+
+示例:
+
+```
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+```
+
+```
+class Solution {
+    func reverseList(_ head: ListNode?) -> ListNode? {
+        guard var headNode = head else {
+            return nil
+        }
+        let list = ListNode.init(headNode.val)
+        var newHead = list
+        while let next = headNode.next {
+            let newNode = ListNode.init(next.val)
+            newNode.next = newHead
+            newHead = newNode
+            headNode = next
+        }
+        return newHead
+    }
+}
+```
+
+# 14.反转字符串
 
 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
 
@@ -637,4 +709,3 @@ class Solution {
         return helper(&s, leftIndex+1, rightIndex-1)
     }
 }
-```
