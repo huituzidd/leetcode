@@ -26,6 +26,8 @@
 
 [14.反转字符串](#14.反转字符串)
 
+[15.两两交换链表中的节点](#15.两两交换链表中的节点)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -709,3 +711,47 @@ class Solution {
         return helper(&s, leftIndex+1, rightIndex-1)
     }
 }
+```
+
+# 15.两两交换链表中的节点
+
+给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+
+你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+
+ (递归实现)
+
+示例:
+
+```
+给定 1->2->3->4, 你应该返回 2->1->4->3.
+```
+
+```
+public class ListNode {
+    public var val: Int
+    public var next: ListNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.next = nil
+    }
+}
+
+class Solution {
+    func swapPairs(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+        
+        let firstNode = head
+        let secondNode = head?.next
+        
+        firstNode?.next = swapPairs(secondNode?.next)
+        secondNode?.next = firstNode
+        
+        return secondNode;
+    }
+}
+```
+
+
