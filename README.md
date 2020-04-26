@@ -28,6 +28,8 @@
 
 [15.两两交换链表中的节点](#15.两两交换链表中的节点)
 
+[16.119.杨辉三角](#16.119.杨辉三角)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -754,4 +756,52 @@ class Solution {
 }
 ```
 
+# 16.119.杨辉三角
+
+给定一个非负整数 numRows，生成杨辉三角的前 numRows 行
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 5
+输出:
+
+```
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+```
+
+```
+class Solution {
+    func generate(_ numRows: Int) -> [[Int]] {
+        guard numRows > 0 else {
+            return []
+        }
+        
+        var array = [[Int]]()
+        array.append([1])
+        
+        for i in 1..<numRows {
+            var row = [Int]()
+            let preRow = array[i - 1]
+            
+            row.append(1)
+            for j in 1..<i {
+                row.append(preRow[j - 1] + preRow[j])
+            }
+            
+            row.append(1)
+            array.append(row)
+            
+        }
+        return array
+    }
+}
+```
 
