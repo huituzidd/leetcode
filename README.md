@@ -30,6 +30,8 @@
 
 [16.119.杨辉三角](#16.119.杨辉三角)
 
+[17.119. 杨辉三角 II](#17.119. 杨辉三角 II)
+
 # 1.两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -805,3 +807,37 @@ class Solution {
 }
 ```
 
+# 17.119. 杨辉三角 II
+
+给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 3
+输出: [1,3,3,1]
+
+
+```
+class Solution {
+    func getRow(_ rowIndex: Int) -> [Int] {
+        if rowIndex == 0 {
+            return [1]
+        }
+        var pre = 1;
+        var cur = [Int]();
+        cur.append(1);
+        
+        for  i in 1...rowIndex {
+            for j in 1..<i {
+                let temp = cur[j]
+                cur[j] = pre + cur[j]
+                pre = temp
+            }
+            cur.append(1)
+        }
+        return cur
+    }
+}
+```
